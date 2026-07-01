@@ -91,7 +91,7 @@ function preencherDelete(professor) {
 
 function limparDelete() {
     professorParaExcluir = null;
-    dadosDelete.textContent = "Informe um ID e busque o professor antes de excluir.";
+    dadosDelete.textContent = "Informe um ID para localizar o professor.";
     btnExcluir.disabled = true;
 }
 
@@ -134,7 +134,7 @@ btnAtualizar.addEventListener("click", async () => {
     try {
         limparMensagem();
         await listarProfessores();
-        mostrarMensagem("GET realizado: tabela atualizada.");
+        mostrarMensagem("Lista atualizada com sucesso.");
     } catch (error) {
         mostrarMensagem(error.message, "error");
     }
@@ -151,7 +151,7 @@ formCadastro.addEventListener("submit", async (event) => {
         });
         formCadastro.reset();
         await listarProfessores();
-        mostrarMensagem("POST realizado: professor cadastrado com sucesso.");
+        mostrarMensagem("Professor cadastrado com sucesso.");
     } catch (error) {
         mostrarMensagem(error.message, "error");
     }
@@ -162,7 +162,7 @@ btnBuscarEdicao.addEventListener("click", async () => {
         limparMensagem();
         const professor = await buscarProfessor(idEdicao.value);
         preencherEdicao(professor);
-        mostrarMensagem("GET por ID realizado: campos do PUT preenchidos automaticamente.");
+        mostrarMensagem("Cadastro carregado para edicao.");
     } catch (error) {
         mostrarMensagem(error.message, "error");
     }
@@ -178,7 +178,7 @@ formEdicao.addEventListener("submit", async (event) => {
             body: JSON.stringify(lerEdicao())
         });
         await listarProfessores();
-        mostrarMensagem("PUT realizado: professor atualizado com sucesso.");
+        mostrarMensagem("Cadastro atualizado com sucesso.");
     } catch (error) {
         mostrarMensagem(error.message, "error");
     }
@@ -189,7 +189,7 @@ btnBuscarDelete.addEventListener("click", async () => {
         limparMensagem();
         const professor = await buscarProfessor(idDelete.value);
         preencherDelete(professor);
-        mostrarMensagem("GET por ID realizado: professor recuperado para exclusao.");
+        mostrarMensagem("Professor localizado para exclusao.");
     } catch (error) {
         limparDelete();
         mostrarMensagem(error.message, "error");
@@ -209,7 +209,7 @@ formDelete.addEventListener("submit", async (event) => {
         const confirmar = confirm(`Tem certeza que deseja excluir o professor ${professorParaExcluir.nome}?`);
 
         if (!confirmar) {
-            mostrarMensagem("DELETE cancelado pelo usuario.", "error");
+            mostrarMensagem("Exclusao cancelada.", "error");
             return;
         }
 
@@ -219,7 +219,7 @@ formDelete.addEventListener("submit", async (event) => {
         limparDelete();
         formDelete.reset();
         await listarProfessores();
-        mostrarMensagem("DELETE realizado: professor excluido com sucesso.");
+        mostrarMensagem("Professor excluido com sucesso.");
     } catch (error) {
         mostrarMensagem(error.message, "error");
     }
@@ -233,14 +233,14 @@ tabela.addEventListener("click", async (event) => {
         if (editarId) {
             const professor = await buscarProfessor(editarId);
             preencherEdicao(professor);
-            mostrarMensagem("Professor carregado no formulario de PUT.");
+            mostrarMensagem("Professor carregado para edicao.");
         }
 
         if (deletarId) {
             const professor = await buscarProfessor(deletarId);
             idDelete.value = professor.id;
             preencherDelete(professor);
-            mostrarMensagem("Professor carregado no formulario de DELETE.");
+            mostrarMensagem("Professor carregado para exclusao.");
         }
     } catch (error) {
         mostrarMensagem(error.message, "error");

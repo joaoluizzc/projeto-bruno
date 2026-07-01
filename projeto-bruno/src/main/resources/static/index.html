@@ -3,50 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Bruno - Consumo do Endpoint pelo Frontend</title>
+    <title>Sistema Academico</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <header class="topbar">
-        <h1>Projeto Bruno: Consumo do Endpoint pelo Frontend</h1>
-    </header>
-
     <div class="layout">
         <aside class="sidebar">
-            <button class="menu-button" type="button" aria-label="Abrir menu">=</button>
+            <div class="brand">
+                <div class="brand-mark" aria-hidden="true">SA</div>
+                <div>
+                    <strong>Sistema Academico</strong>
+                    <span>Controle docente</span>
+                </div>
+            </div>
+
             <nav>
-                <a href="#atividade" class="active">Envio da Atividade</a>
+                <a href="#professores" class="active">Professores</a>
             </nav>
         </aside>
 
-        <main class="content" id="atividade">
-            <section class="assignment">
-                <h2>Envio da Atividade</h2>
-                <div class="title-line"></div>
-
-                <div class="deadline">
-                    <div class="calendar-icon" aria-hidden="true"></div>
-                    <div>
-                        <strong>Prazo de envio</strong>
-                        <span>02/07/2026 - 23:30</span>
-                    </div>
+        <main class="content" id="professores">
+            <header class="page-header">
+                <div>
+                    <p class="eyebrow">Secretaria</p>
+                    <h1>Cadastro de Professores</h1>
                 </div>
-            </section>
+                <button class="primary" id="btnAtualizar" type="button">Atualizar lista</button>
+            </header>
 
             <section class="workspace">
-                <div class="section-heading">
-                    <div>
-                        <p class="eyebrow">API REST</p>
-                        <h3>Cadastro de Professores</h3>
-                    </div>
-                    <button class="primary" id="btnAtualizar" type="button">GET - Listar</button>
-                </div>
-
                 <div id="mensagem" class="message" role="status"></div>
 
                 <div class="grid">
                     <form id="formCadastro" class="panel">
-                        <h4>POST - Cadastrar</h4>
+                        <h2>Novo professor</h2>
                         <label>
                             Nome
                             <input id="nomeCadastro" type="text" required placeholder="Ex.: Joao Souza">
@@ -59,16 +49,16 @@
                             Materia
                             <input id="materiaCadastro" type="text" required placeholder="Ex.: Java">
                         </label>
-                        <button class="primary full" type="submit">Enviar POST</button>
+                        <button class="primary full" type="submit">Cadastrar</button>
                     </form>
 
                     <form id="formEdicao" class="panel">
-                        <h4>PUT - Atualizar</h4>
+                        <h2>Editar cadastro</h2>
                         <label>
                             ID
                             <div class="inline">
                                 <input id="idEdicao" type="number" min="1" required placeholder="ID">
-                                <button id="btnBuscarEdicao" type="button">GET ID</button>
+                                <button id="btnBuscarEdicao" type="button">Buscar</button>
                             </div>
                         </label>
                         <label>
@@ -83,28 +73,28 @@
                             Materia
                             <input id="materiaEdicao" type="text" required>
                         </label>
-                        <button class="primary full" type="submit">Enviar PUT</button>
+                        <button class="primary full" type="submit">Salvar alteracoes</button>
                     </form>
 
-                    <form id="formDelete" class="panel">
-                        <h4>DELETE - Excluir</h4>
+                    <form id="formDelete" class="panel panel-danger">
+                        <h2>Remover cadastro</h2>
                         <label>
                             ID
                             <div class="inline">
                                 <input id="idDelete" type="number" min="1" required placeholder="ID">
-                                <button id="btnBuscarDelete" type="button">GET ID</button>
+                                <button id="btnBuscarDelete" type="button">Buscar</button>
                             </div>
                         </label>
                         <div id="dadosDelete" class="delete-preview">
-                            Informe um ID e busque o professor antes de excluir.
+                            Informe um ID para localizar o professor.
                         </div>
-                        <button class="danger full" id="btnExcluir" type="submit" disabled>Enviar DELETE</button>
+                        <button class="danger full" id="btnExcluir" type="submit" disabled>Excluir professor</button>
                     </form>
                 </div>
 
                 <div class="table-panel">
                     <div class="table-header">
-                        <h4>GET - Listagem em tabela</h4>
+                        <h2>Professores cadastrados</h2>
                         <span id="contador">0 registros</span>
                     </div>
                     <div class="table-wrap">
