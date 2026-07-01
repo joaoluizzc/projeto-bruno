@@ -1,0 +1,11 @@
+package com.faculdade.atividade.repository;
+
+import com.faculdade.atividade.model.Professor;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface ProfessorRepository extends JpaRepository<Professor, Long> {
+
+    Optional<Professor> findByNomeIgnoreCase(String nome);
+}
