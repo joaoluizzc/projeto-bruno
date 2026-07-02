@@ -1,121 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Academico</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Uniguacu | Gestao Academica</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script src="/app.js" defer></script>
 </head>
 <body>
-    <div class="layout">
-        <aside class="sidebar">
+    <main class="app-shell">
+        <aside class="side-panel" aria-label="Navegacao principal">
             <div class="brand">
-                <div class="brand-mark" aria-hidden="true">SA</div>
+                <span class="brand-mark" aria-hidden="true">
+                    <i data-lucide="graduation-cap"></i>
+                </span>
                 <div>
-                    <strong>Sistema Academico</strong>
-                    <span>Controle docente</span>
+                    <p class="overline">Uniguacu</p>
+                    <h1>Gestao Academica</h1>
                 </div>
             </div>
 
-            <nav>
-                <a href="#professores" class="active">Professores</a>
+            <nav class="module-nav" aria-label="Modulos">
+                <button class="nav-button is-active" type="button" data-view="areas">
+                    <i data-lucide="layers-3" aria-hidden="true"></i>
+                    <span>Areas</span>
+                </button>
+                <button class="nav-button" type="button" data-view="professores">
+                    <i data-lucide="user-round" aria-hidden="true"></i>
+                    <span>Professores</span>
+                </button>
+                <button class="nav-button" type="button" data-view="cursos">
+                    <i data-lucide="book-open-check" aria-hidden="true"></i>
+                    <span>Cursos</span>
+                </button>
+                <button class="nav-button" type="button" data-view="disciplinas">
+                    <i data-lucide="notebook-tabs" aria-hidden="true"></i>
+                    <span>Disciplinas</span>
+                </button>
             </nav>
-        </aside>
 
-        <main class="content" id="professores">
-            <header class="page-header">
+            <section class="status-panel" aria-label="Resumo da base">
                 <div>
-                    <p class="eyebrow">Secretaria</p>
-                    <h1>Cadastro de Professores</h1>
+                    <span>Total geral</span>
+                    <strong id="totalGeral">0</strong>
                 </div>
-                <button class="primary" id="btnAtualizar" type="button">Atualizar lista</button>
-            </header>
-
-            <section class="workspace">
-                <div id="mensagem" class="message" role="status"></div>
-
-                <div class="grid">
-                    <form id="formCadastro" class="panel">
-                        <h2>Novo professor</h2>
-                        <label>
-                            Nome
-                            <input id="nomeCadastro" type="text" required placeholder="Ex.: Joao Souza">
-                        </label>
-                        <label>
-                            Email
-                            <input id="emailCadastro" type="email" required placeholder="joao@faculdade.edu">
-                        </label>
-                        <label>
-                            Materia
-                            <input id="materiaCadastro" type="text" required placeholder="Ex.: Java">
-                        </label>
-                        <button class="primary full" type="submit">Cadastrar</button>
-                    </form>
-
-                    <form id="formEdicao" class="panel">
-                        <h2>Editar cadastro</h2>
-                        <label>
-                            ID
-                            <div class="inline">
-                                <input id="idEdicao" type="number" min="1" required placeholder="ID">
-                                <button id="btnBuscarEdicao" type="button">Buscar</button>
-                            </div>
-                        </label>
-                        <label>
-                            Nome
-                            <input id="nomeEdicao" type="text" required>
-                        </label>
-                        <label>
-                            Email
-                            <input id="emailEdicao" type="email" required>
-                        </label>
-                        <label>
-                            Materia
-                            <input id="materiaEdicao" type="text" required>
-                        </label>
-                        <button class="primary full" type="submit">Salvar alteracoes</button>
-                    </form>
-
-                    <form id="formDelete" class="panel panel-danger">
-                        <h2>Remover cadastro</h2>
-                        <label>
-                            ID
-                            <div class="inline">
-                                <input id="idDelete" type="number" min="1" required placeholder="ID">
-                                <button id="btnBuscarDelete" type="button">Buscar</button>
-                            </div>
-                        </label>
-                        <div id="dadosDelete" class="delete-preview">
-                            Informe um ID para localizar o professor.
-                        </div>
-                        <button class="danger full" id="btnExcluir" type="submit" disabled>Excluir professor</button>
-                    </form>
-                </div>
-
-                <div class="table-panel">
-                    <div class="table-header">
-                        <h2>Professores cadastrados</h2>
-                        <span id="contador">0 registros</span>
-                    </div>
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Materia</th>
-                                    <th>Acoes</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabelaProfessores"></tbody>
-                        </table>
-                    </div>
+                <div class="status-line">
+                    <span id="statusText">Sincronizando dados</span>
+                    <i data-lucide="wifi" aria-hidden="true"></i>
                 </div>
             </section>
-        </main>
-    </div>
+        </aside>
 
-    <script src="/js/app.js"></script>
+        <section class="main-panel">
+            <header class="topbar">
+                <div>
+                    <p class="overline">Painel de cadastros</p>
+                    <h2 id="pageTitle">Areas do conhecimento</h2>
+                </div>
+                <button class="ghost-button" id="refreshButton" type="button" title="Atualizar dados">
+                    <i data-lucide="refresh-cw" aria-hidden="true"></i>
+                    <span>Atualizar</span>
+                </button>
+            </header>
+
+            <section class="metrics-grid" aria-label="Indicadores">
+                <article class="metric-card">
+                    <span>Areas</span>
+                    <strong id="metricAreas">0</strong>
+                </article>
+                <article class="metric-card">
+                    <span>Professores</span>
+                    <strong id="metricProfessores">0</strong>
+                </article>
+                <article class="metric-card">
+                    <span>Cursos</span>
+                    <strong id="metricCursos">0</strong>
+                </article>
+                <article class="metric-card">
+                    <span>Disciplinas</span>
+                    <strong id="metricDisciplinas">0</strong>
+                </article>
+            </section>
+
+            <section class="work-grid">
+                <form class="form-panel" id="entityForm">
+                    <input id="entityId" type="hidden">
+                    <div class="section-heading">
+                        <div>
+                            <p class="overline" id="formKicker">Novo cadastro</p>
+                            <h3 id="formTitle">Cadastrar area</h3>
+                        </div>
+                        <button class="icon-button is-hidden" id="cancelEditButton" type="button" title="Cancelar edicao">
+                            <i data-lucide="x" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+                    <div id="formFields" class="form-fields"></div>
+
+                    <p class="feedback" id="feedback" role="status"></p>
+
+                    <button class="primary-button" type="submit">
+                        <i data-lucide="save" aria-hidden="true"></i>
+                        <span id="submitLabel">Salvar cadastro</span>
+                    </button>
+                </form>
+
+                <section class="table-panel" aria-label="Lista de registros">
+                    <div class="table-toolbar">
+                        <label class="search-box" for="searchInput">
+                            <i data-lucide="search" aria-hidden="true"></i>
+                            <input id="searchInput" type="search" placeholder="Buscar registro">
+                        </label>
+                        <span class="count-chip" id="resultCount">0 itens</span>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead id="tableHead"></thead>
+                            <tbody id="tableBody">
+                                <tr>
+                                    <td class="empty-cell">Carregando...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </main>
 </body>
 </html>

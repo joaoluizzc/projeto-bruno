@@ -1,12 +1,13 @@
-package com.faculdade.atividade;
+package com.uniguacu.uniguacuapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AtividadeApplicationTests {
+class UniguacuApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
+
 }

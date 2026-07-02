@@ -1,15 +1,7 @@
 pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-    }
+	repositories {
+		maven { url = uri("https://repo.spring.io/snapshot") }
+		gradlePluginPortal()
+	}
 }
-
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        mavenCentral()
-    }
-}
-
-rootProject.name = "projeto-bruno"
+rootProject.name = "uniguacu"
